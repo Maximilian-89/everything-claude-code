@@ -40,3 +40,11 @@ examples/sessions/*.tmp
 
 # Local drafts
 marketing/
+
+# Local reference & settings
+REFERENCE.md
+.claude/settings.local.json
+
+# Personal update scripts
+update.bat
+update.js

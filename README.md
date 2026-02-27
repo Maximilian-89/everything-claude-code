@@ -126,7 +126,6 @@ Get up and running in under 2 minutes:
 
 > ⚠️ **Important:** Claude Code plugins cannot distribute `rules` automatically. Install them manually:
 
-
 ```bash
 # Clone the repo first
 git clone https://github.com/affaan-m/everything-claude-code.git
@@ -145,14 +144,17 @@ For manual install instructions see the README in the `rules/` folder.
 ### Step 3: Start Using
 
 ```bash
-# Try a command
-/plan "Add user authentication"
+# Try a command (plugin install uses namespaced form)
+/everything-claude-code:plan "Add user authentication"
+
+# Manual install (Option 2) uses the shorter form:
+# /plan "Add user authentication"
 
 # Check available commands
 /plugin list everything-claude-code@everything-claude-code
 ```
 
-✨ **That's it!** You now have access to 13 agents, 48 skills, and 32 commands.
+✨ **That's it!** You now have access to 13 agents, 56 skills, and 32 commands.
 
 ---
 
@@ -221,6 +223,12 @@ everything-claude-code/
 |   |-- clickhouse-io/              # ClickHouse analytics, queries, data engineering
 |   |-- backend-patterns/           # API, database, caching patterns
 |   |-- frontend-patterns/          # React, Next.js patterns
+|   |-- frontend-slides/            # HTML slide decks and PPTX-to-web presentation workflows (NEW)
+|   |-- article-writing/            # Long-form writing in a supplied voice without generic AI tone (NEW)
+|   |-- content-engine/             # Multi-platform social content and repurposing workflows (NEW)
+|   |-- market-research/            # Source-attributed market, competitor, and investor research (NEW)
+|   |-- investor-materials/         # Pitch decks, one-pagers, memos, and financial models (NEW)
+|   |-- investor-outreach/          # Personalized fundraising outreach and follow-up (NEW)
 |   |-- continuous-learning/        # Auto-extract patterns from sessions (Longform Guide)
 |   |-- continuous-learning-v2/     # Instinct-based learning with confidence scoring
 |   |-- iterative-retrieval/        # Progressive context refinement for subagents
@@ -624,8 +632,8 @@ Not sure where to start? Use this quick reference:
 
 | I want to... | Use this command | Agent used |
 |--------------|-----------------|------------|
-| Plan a new feature | `/plan "Add auth"` | planner |
-| Design system architecture | `/plan` + architect agent | architect |
+| Plan a new feature | `/everything-claude-code:plan "Add auth"` | planner |
+| Design system architecture | `/everything-claude-code:plan` + architect agent | architect |
 | Write code with tests first | `/tdd` | tdd-guide |
 | Review code I just wrote | `/code-review` | code-reviewer |
 | Fix a failing build | `/build-fix` | build-error-resolver |
@@ -641,7 +649,8 @@ Not sure where to start? Use this quick reference:
 
 **Starting a new feature:**
 ```
-/plan "Add user authentication with OAuth"   → planner creates implementation blueprint
+/everything-claude-code:plan "Add user authentication with OAuth"
+                                              → planner creates implementation blueprint
 /tdd                                          → tdd-guide enforces write-tests-first
 /code-review                                  → code-reviewer checks your work
 ```
@@ -792,7 +801,7 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 | Hook Scripts | 16 | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter |
 | Rules | 29 | 9 common (alwaysApply) + 20 language-specific (TypeScript, Python, Go, Swift) |
 | Agents | Shared | Via AGENTS.md at root (read by Cursor natively) |
-| Skills | Shared | Via AGENTS.md at root |
+| Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
 | Commands | Shared | `.cursor/commands/` if installed |
 | MCP Config | Shared | `.cursor/mcp.json` if installed |
 
@@ -828,7 +837,7 @@ alwaysApply: false
 
 ## Codex CLI Support
 
-ECC provides **first-class Codex CLI support** with a reference configuration, Codex-specific AGENTS.md supplement, and 10 ported skills.
+ECC provides **first-class Codex CLI support** with a reference configuration, Codex-specific AGENTS.md supplement, and 16 ported skills.
 
 ### Quick Start (Codex)
 
@@ -846,7 +855,7 @@ codex
 |-----------|-------|---------|
 | Config | 1 | `.codex/config.toml` — model, permissions, MCP servers, persistent instructions |
 | AGENTS.md | 2 | Root (universal) + `.codex/AGENTS.md` (Codex-specific supplement) |
-| Skills | 10 | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill |
+| Skills | 16 | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill |
 | MCP Servers | 4 | GitHub, Context7, Memory, Sequential Thinking (command-based) |
 | Profiles | 2 | `strict` (read-only sandbox) and `yolo` (full auto-approve) |
 
@@ -860,6 +869,12 @@ Skills at `.agents/skills/` are auto-loaded by Codex:
 | security-review | Comprehensive security checklist |
 | coding-standards | Universal coding standards |
 | frontend-patterns | React/Next.js patterns |
+| frontend-slides | HTML presentations, PPTX conversion, visual style exploration |
+| article-writing | Long-form writing from notes and voice references |
+| content-engine | Platform-native social content and repurposing |
+| market-research | Source-attributed market and competitor research |
+| investor-materials | Decks, memos, models, and one-pagers |
+| investor-outreach | Personalized outreach, follow-ups, and intro blurbs |
 | backend-patterns | API design, database, caching |
 | e2e-testing | Playwright E2E tests |
 | eval-harness | Eval-driven development |

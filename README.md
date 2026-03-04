@@ -27,9 +27,11 @@
 
 ---
 
-**The complete collection of Claude Code configs from an Anthropic hackathon winner.**
+**The performance optimization system for AI agent harnesses. From an Anthropic hackathon winner.**
 
-Production-ready agents, skills, hooks, commands, rules, and MCP configurations evolved over 10+ months of intensive daily use building real products.
+Not just configs. A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. Production-ready agents, hooks, commands, rules, and MCP configurations evolved over 10+ months of intensive daily use building real products.
+
+Works across **Claude Code**, **Codex**, **Cowork**, and other AI agent harnesses.
 
 ---
 
@@ -68,6 +70,14 @@ This repo is the raw code only. The guides explain everything.
 ---
 
 ## What's New
+
+### v1.7.0 — Cross-Platform Expansion & Presentation Builder (Feb 2026)
+
+- **Codex app + CLI support** — Direct `AGENTS.md`-based Codex support, installer targeting, and Codex docs
+- **`frontend-slides` skill** — Zero-dependency HTML presentation builder with PPTX conversion guidance and strict viewport-fit rules
+- **5 new generic business/content skills** — `article-writing`, `content-engine`, `market-research`, `investor-materials`, `investor-outreach`
+- **Broader tool coverage** — Cursor, Codex, and OpenCode support tightened so the same repo ships cleanly across all major harnesses
+- **992 internal tests** — Expanded validation and regression coverage across plugin, hooks, skills, and packaging
 
 ### v1.6.0 — Codex CLI, AgentShield & Marketplace (Feb 2026)
 
@@ -273,6 +283,8 @@ everything-claude-code/
 |   |-- liquid-glass-design/         # iOS 26 Liquid Glass design system (NEW)
 |   |-- foundation-models-on-device/ # Apple on-device LLM with FoundationModels (NEW)
 |   |-- swift-concurrency-6-2/       # Swift 6.2 Approachable Concurrency (NEW)
+|   |-- autonomous-loops/           # Autonomous loop patterns: sequential pipelines, PR loops, DAG orchestration (NEW)
+|   |-- plankton-code-quality/      # Write-time code quality enforcement with Plankton hooks (NEW)
 |
 |-- commands/         # Slash commands for quick execution
 |   |-- tdd.md              # /tdd - Test-driven development
@@ -432,6 +444,10 @@ Use `/security-scan` in Claude Code to run it, or add to CI with the [GitHub Act
 
 [GitHub](https://github.com/affaan-m/agentshield) | [npm](https://www.npmjs.com/package/ecc-agentshield)
 
+### 🔬 Plankton — Write-Time Code Quality Enforcement
+
+Plankton (credit: @alxfazio) is a recommended companion for write-time code quality enforcement. It runs formatters and 20+ linters on every file edit via PostToolUse hooks, then spawns Claude subprocesses (routed to Haiku/Sonnet/Opus by violation complexity) to fix issues the main agent missed. Three-phase architecture: auto-format silently (40-50% of issues), collect remaining violations as structured JSON, delegate fixes to a subprocess. Includes config protection hooks that prevent agents from modifying linter configs to pass instead of fixing code. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. Use alongside AgentShield for security + quality coverage. See `skills/plankton-code-quality/` for full integration guide.
+
 ### 🧠 Continuous Learning v2
 
 The instinct-based learning system automatically learns your patterns:
@@ -549,8 +565,15 @@ cp -r everything-claude-code/rules/golang/* ~/.claude/rules/
 # Copy commands
 cp everything-claude-code/commands/*.md ~/.claude/commands/
 
-# Copy skills
-cp -r everything-claude-code/skills/* ~/.claude/skills/
+# Copy skills (core vs niche)
+# Recommended (new users): core/general skills only
+cp -r everything-claude-code/.agents/skills/* ~/.claude/skills/
+cp -r everything-claude-code/skills/search-first ~/.claude/skills/
+
+# Optional: add niche/framework-specific skills only when needed
+# for s in django-patterns django-tdd springboot-patterns; do
+#   cp -r everything-claude-code/skills/$s ~/.claude/skills/
+# done
 ```
 
 #### Add hooks to settings.json
@@ -884,7 +907,7 @@ Skills at `.agents/skills/` are auto-loaded by Codex:
 
 ### Key Limitation
 
-Codex CLI does **not yet support hooks** ([GitHub Issue #2109](https://github.com/openai/codex/issues/2109), 430+ upvotes). Security enforcement is instruction-based via `persistent_instructions` in config.toml and the sandbox permission system.
+Codex CLI does **not yet support hooks** (OpenAI Codex Issue #2109, 430+ upvotes). Security enforcement is instruction-based via `persistent_instructions` in config.toml and the sandbox permission system.
 
 ---
 
@@ -964,6 +987,8 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 | `/instinct-import` | Import instincts |
 | `/instinct-export` | Export instincts |
 | `/evolve` | Cluster instincts into skills |
+| `/promote` | Promote project instincts to global scope |
+| `/projects` | List known projects and instinct stats |
 | `/learn-eval` | Extract and evaluate patterns before saving |
 | `/setup-pm` | Configure package manager |
 
